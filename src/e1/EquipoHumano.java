@@ -62,6 +62,7 @@ class EquipoTecnico extends EquipoHumano {
         if (profesion.equals("guionista") || profesion.equals("musico") || profesion.equals("productor") || profesion.equals("director"))
             this.profesion = profesion;
         else throw new IllegalArgumentException("Profesion no valida para equipo tecnico");
+        //Mirar aqui
     }
 }
 
