@@ -3,24 +3,23 @@ package e1;
 public class EquipoHumano {
     private final String nombre;
     private final String apellido;
-    private final int DNI;
+    private final String DNI;
     private final String nacionalidad;
     private final String profesion;
-    private final Salaries salario_p_h;
+    private final Salaries Sal_roy_Prof;
     private final int horas_trabajadas;
     private int telefono;
 
-    public EquipoHumano(String nombre, String apellido, int DNI, int telefono, String nacionalidad, String profesion, Salaries salario_p_h, int horas_trabajadas) {
+    public EquipoHumano(String nombre, String apellido, String DNI, int telefono, String nacionalidad, Salaries Sal_roy_Prof, int horas_trabajadas) {
         this.nombre = nombre;
         this.apellido = apellido;
         this.DNI = DNI;
         this.telefono = telefono;
         this.nacionalidad = nacionalidad;
-        this.salario_p_h = salario_p_h;
-        this.horas_trabajadas = horas_trabajadas;
-        if (profesion.equals("Guionista") || profesion.equals("Musico") || profesion.equals("Productor") || profesion.equals("Director") || profesion.equals("Interprete") || profesion.equals("Especialista") || profesion.equals("Doblador")) {
-            this.profesion = profesion;
-        } else throw new IllegalArgumentException("Profesion no valida");
+        this.Sal_roy_Prof = Sal_roy_Prof;
+        if (horas_trabajadas > 0) this.horas_trabajadas = horas_trabajadas;
+        else throw new IllegalArgumentException("Error:Numero de hora trabajadas invalido");
+        this.profesion = Sal_roy_Prof.getProfesion_name();
     }
 
     public String getNombre() {
@@ -31,7 +30,7 @@ public class EquipoHumano {
         return apellido;
     }
 
-    public int getDNI() {
+    public String getDNI() {
         return DNI;
     }
 
@@ -56,35 +55,53 @@ public class EquipoHumano {
     }
 
     public float Salario_base() {
-        return this.salario_p_h.getSalario_p_hora() * this.horas_trabajadas;
+        return this.Sal_roy_Prof.getSalario_p_hora() * this.horas_trabajadas;
     }
 
-    public double Royalties(){
-        return this.salario_p_h.getRoyalties();
+    public double Royalties() {
+        return this.Sal_roy_Prof.getRoyalties();
     }
 }
 
 
 class EquipoTecnico extends EquipoHumano {
-    boolean guion_original = false;
-    int anos_antiguedad = 0;
+    private final boolean guion_original;
+    private final int anos_antiguedad;
 
-    public EquipoTecnico(String nombre, String apellido, int DNI, int telefono, String nacionalidad, String profesion, Salaries salario_p_h, int horas_trabajadas, boolean guion_original, int anos_antiguedad) {
-        super(nombre, apellido, DNI, telefono, nacionalidad, profesion, salario_p_h, horas_trabajadas);
+    public boolean isGuion_original() {
+        return guion_original;
+    }
+
+    public int getAnos_antiguedad() {
+        return anos_antiguedad;
+    }
+
+    public EquipoTecnico(String nombre, String apellido, String DNI, int telefono, String nacionalidad, Salaries Sal_roy_Prof, int horas_trabajadas, boolean guion_original, int anos_antiguedad) {
+        super(nombre, apellido, DNI, telefono, nacionalidad, Sal_roy_Prof, horas_trabajadas);
         this.guion_original = guion_original;
-        this.anos_antiguedad = anos_antiguedad;
+        if (anos_antiguedad > 0) this.anos_antiguedad = anos_antiguedad;
+        else throw new IllegalArgumentException("Error: Numero de anos de antiguedad invalido");
     }
 }
 
 class EquipoArtistico extends EquipoHumano {
-    String rol = "\0";
-    boolean stunt_double = false;
+    private final String rol;
+    private final boolean stunt_double;
 
-    public EquipoArtistico(String nombre, String apellido, int DNI, int telefono, String nacionalidad, String profesion, Salaries salario_p_h, int horas_trabajadas, String rol, boolean stunt_double) {
-        super(nombre, apellido, DNI, telefono, nacionalidad, profesion, salario_p_h, horas_trabajadas);
-        if (profesion.equals("Interprete") && (rol.equals("Principal") || rol.equals("Secundario") || rol.equals("Extra")))
+    public EquipoArtistico(String nombre, String apellido, String DNI, int telefono, String nacionalidad, Salaries Sal_roy_Prof, int horas_trabajadas, String rol, boolean stunt_double) {
+        super(nombre, apellido, DNI, telefono, nacionalidad, Sal_roy_Prof, horas_trabajadas);
+        if (Sal_roy_Prof.getProfesion_name().equals("Interprete") && (rol.equals("Principal") || rol.equals("Secundario") || rol.equals("Extra")))
             this.rol = rol;
+        else this.rol = null;
         this.stunt_double = stunt_double;
+    }
+
+    public boolean isStunt_double() {
+        return stunt_double;
+    }
+
+    public String getRol() {
+        return rol;
     }
 }
 
