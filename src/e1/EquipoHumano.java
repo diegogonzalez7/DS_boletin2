@@ -4,16 +4,20 @@ public class EquipoHumano {
     private final String nombre;
     private final String apellido;
     private final int DNI;
-    private int telefono;
     private final String nacionalidad;
     private final String profesion;
+    private final Salaries salario_p_h;
+    private final int horas_trabajadas;
+    private int telefono;
 
-    public EquipoHumano(String nombre, String apellido, int DNI, int telefono, String nacionalidad, String profesion) {
+    public EquipoHumano(String nombre, String apellido, int DNI, int telefono, String nacionalidad, String profesion, Salaries salario_p_h, int horas_trabajadas) {
         this.nombre = nombre;
         this.apellido = apellido;
         this.DNI = DNI;
         this.telefono = telefono;
         this.nacionalidad = nacionalidad;
+        this.salario_p_h = salario_p_h;
+        this.horas_trabajadas = horas_trabajadas;
         if (profesion.equals("Guionista") || profesion.equals("Musico") || profesion.equals("Productor") || profesion.equals("Director") || profesion.equals("Interprete") || profesion.equals("Especialista") || profesion.equals("Doblador")) {
             this.profesion = profesion;
         } else throw new IllegalArgumentException("Profesion no valida");
@@ -47,39 +51,40 @@ public class EquipoHumano {
         return nombre + " " + apellido;
     }
 
-    public String getprofesion(){
+    public String getprofesion() {
         return profesion;
+    }
+
+    public float Salario_base() {
+        return this.salario_p_h.getSalario_p_hora() * this.horas_trabajadas;
+    }
+
+    public double Royalties(){
+        return this.salario_p_h.getRoyalties();
     }
 }
 
 
 class EquipoTecnico extends EquipoHumano {
-    String profesion;
-    boolean guion_original = false, stunt_double = false;
+    boolean guion_original = false;
+    int anos_antiguedad = 0;
 
-    public EquipoTecnico(String nombre, String apellido, int DNI, int telefono, String nacionalidad, String profesion) {
-        super(nombre, apellido, DNI, telefono, nacionalidad, profesion);
-        if (profesion.equals("guionista") || profesion.equals("musico") || profesion.equals("productor") || profesion.equals("director"))
-            this.profesion = profesion;
-        else throw new IllegalArgumentException("Profesion no valida para equipo tecnico");
-        //Mirar aqui
+    public EquipoTecnico(String nombre, String apellido, int DNI, int telefono, String nacionalidad, String profesion, Salaries salario_p_h, int horas_trabajadas, boolean guion_original, int anos_antiguedad) {
+        super(nombre, apellido, DNI, telefono, nacionalidad, profesion, salario_p_h, horas_trabajadas);
+        this.guion_original = guion_original;
+        this.anos_antiguedad = anos_antiguedad;
     }
 }
 
 class EquipoArtistico extends EquipoHumano {
+    String rol = "\0";
+    boolean stunt_double = false;
 
-    String profesion;
-    String rol;
-
-    public EquipoArtistico(String nombre, String apellido, int DNI, int telefono, String nacionalidad, String profesion, String rol) {
-        super(nombre, apellido, DNI, telefono, nacionalidad, profesion);
-        if (profesion.equals("interprete") || profesion.equals("especialista") || profesion.equals("doblador")) {
-            this.profesion = profesion;
-            if (profesion.equals("interprete") && (rol.equals("principal") || rol.equals("secundario") || rol.equals("extra")))
-                this.rol = rol;
-            else this.rol = "\0";
-        } else throw new IllegalArgumentException("Profesion no valida para equipo artistico");
-
+    public EquipoArtistico(String nombre, String apellido, int DNI, int telefono, String nacionalidad, String profesion, Salaries salario_p_h, int horas_trabajadas, String rol, boolean stunt_double) {
+        super(nombre, apellido, DNI, telefono, nacionalidad, profesion, salario_p_h, horas_trabajadas);
+        if (profesion.equals("Interprete") && (rol.equals("Principal") || rol.equals("Secundario") || rol.equals("Extra")))
+            this.rol = rol;
+        this.stunt_double = stunt_double;
     }
 }
 
