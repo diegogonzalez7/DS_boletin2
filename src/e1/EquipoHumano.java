@@ -8,7 +8,7 @@ public class EquipoHumano {
     private final String profesion;
     private final Salaries Sal_roy_Prof;
     private final int horas_trabajadas;
-    private int telefono;
+    private final int telefono;
 
     public EquipoHumano(String nombre, String apellido, String DNI, int telefono, String nacionalidad, Salaries Sal_roy_Prof, int horas_trabajadas) {
         this.nombre = nombre;
@@ -40,10 +40,6 @@ public class EquipoHumano {
 
     public int getTelefono() {
         return telefono;
-    }
-
-    public void setTelefono(int telefono) {
-        this.telefono = telefono;
     }
 
     public String nombreCompleto() {
