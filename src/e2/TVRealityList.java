@@ -2,63 +2,60 @@ package e2;
 
 import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.Random;
 
-public class TVRealityList implements Iterable {
+public class TVRealityList<T> implements Iterable<T> {
     private final int cand_n;
-    private final int k;
-
     private final int method;
-    private ArrayList<String> Lista_Nombres = new ArrayList<>();
+    private final ArrayList<T> Lista = new ArrayList<>();
 
     public TVRealityList(int cand_n, int method) {
         this.cand_n = cand_n;
-        Random random_k = new Random();
-        this.k = random_k.nextInt(cand_n);
+
         this.method = method;
     }
 
     public int ListSize() {
-        return this.Lista_Nombres.size();
+        return this.Lista.size();
     }
+
     public int getCand_n() {
         return cand_n;
     }
 
+    public T getByIndex(int i) {
+        return this.Lista.get(i);
+    }
 
-    public void addName(String name) {
-        if (getCand_n()!=ListSize())
-            this.Lista_Nombres.add(name);
+    public void addName(T name) {
+        if (getCand_n() != ListSize())
+            this.Lista.add(name);
         else throw new UnsupportedOperationException("Numero de candidatos alcanzado, insercion invalida");
     }
 
     @Override
-    public Iterator iterator() {
+    public Iterator<T> iterator() {
         // 0 -> recorrido circular
         // Else -> recorrido con rebote
-        int i = 0;
-        Circular c = new Circular(this.Lista_Nombres, 0);
-        Rebote r = new Rebote(this.Lista_Nombres, 0);
-        Object[] elementData = Lista_Nombres.toArray();
-
-        if (this.method == 0) {
+        /*int i;
+        Circular<T> c = new Circular<>(this.Lista, 0);
+        Rebote<T> r = new Rebote<>(this.Lista, 0);
+        if (method == 0) {
             if (c.hasNext()) {
-                while (i != this.k + 1) {
-                    c.next();
-                    i++;
-                }
+                for (i = 0; i < this.k+1; i++) c.next();
                 c.remove();
-                return c.next();
-            } else return (Iterator) elementData[0];
+                return (Iterator<T>) r.next();
+            } else return (Iterator<T>) getByIndex(0);
         } else {
             if (r.hasNext()) {
-                while (i != this.k + 1) {
-                    r.next();
-                    i++;
-                }
+                for (i = 0; i < this.k+1; i++) r.next();
                 r.remove();
-                return r.next();
-            } else return (Iterator) elementData[0];
+                return (Iterator<T>) r.next();
+            } else return (Iterator<T>) getByIndex(0);
         }
+    }*/
+        if (this.method == 0)
+            return new Circular<>(this.Lista, 0);
+        else
+            return new Rebote<>(this.Lista, 0);
     }
 }
