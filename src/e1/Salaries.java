@@ -4,7 +4,7 @@ public enum Salaries {
     GUIONISTA(70, 0.05,"Guionista"),
     MUSICO(60, 0.04, "Musico"),
     PRODUCTOR(90, 0.02, "Productor"),
-    DIRECTOR(100, 0.02, "Director"),
+    DIRECTOR(100, 0.05, "Director"),
     INTERPRETE(200, 0, "Interprete"),
     ESPECIALISTA(40, 0, "Especialista"),
     DOBLADOR(20, 0, "Doblador");

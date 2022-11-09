@@ -43,16 +43,15 @@ public class Pelicula {
                     if (aux_a.isStunt_double()) {
                         System.out.println(" con extra por peligro) :");
                         extra = 1000;
-                    } else System.out.print(") :");
+                    } else System.out.print("): ");
                 } else if (aux_h.getprofesion().equals("Director")) {
-                    System.out.print(") :");
+                    System.out.print("): ");
                     aux_t = (EquipoTecnico) aux_h;
                     extra = 1000 * aux_t.getAnos_antiguedad();
                 } else if (aux_h.getprofesion().equals("Guionista")) {
-                    System.out.print(") :");
                     aux_t = (EquipoTecnico) aux_h;
                     if (aux_t.isGuion_original()) {
-                        System.out.print(",guion original) :");
+                        System.out.print(",guion original): ");
                         extra = 4000;
                     }
                 } else if (aux_h.getprofesion().equals("Interprete")) {
@@ -61,10 +60,11 @@ public class Pelicula {
                     if (aux_a.getRol().equals("Principal")) {
                         salario *= 3;
                     }
-                } else System.out.print(") :");
+                } else System.out.print("): ");
                 salario += extra;
                 suma_salarios += salario;
                 System.out.print(salario + "€\n");
+                extra = 0;
             }
         }
         System.out.print("\nEl pagamiento total de salarios de " + this.getTitulo() + " es " + suma_salarios + "€\n");
