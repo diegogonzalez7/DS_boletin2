@@ -11,7 +11,6 @@ class WinnerTest {
     TVRealityList<String> tvRealityListRebote = new TVRealityList<>(5, 1);
     Winner winner = new Winner ();
 
-
     public TVRealityList<String> getTvRealityListCircular() {
         return tvRealityListCircular;
     }

@@ -3,7 +3,6 @@ package e2;
 import java.util.Iterator;
 import java.util.Random;
 
-
 public class Winner {
     public String selectCandidates(TVRealityList<String> tvRealityList,boolean debugg,int k_debugg) {
         int i;

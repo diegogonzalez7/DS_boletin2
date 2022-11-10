@@ -23,7 +23,6 @@ public class Rebote<T> implements Iterator<T> {
     public boolean hasNext() {
         return Lista.size() != 1;
     }
-
     @Override
     public T next() {
         if (this.Lista.size() == 1) {

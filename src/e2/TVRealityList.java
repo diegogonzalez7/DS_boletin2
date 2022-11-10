@@ -25,7 +25,6 @@ public class TVRealityList<T> implements Iterable<T> {
     public T getByIndex(int i) {
         return this.Lista.get(i);
     }
-
     public void addName(T name) {
         if (getCand_n() == ListSize())
             throw new UnsupportedOperationException("Numero de candidatos alcanzado, insercion invalida");
