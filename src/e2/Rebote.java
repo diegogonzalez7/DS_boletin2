@@ -19,7 +19,6 @@ public class Rebote<T> implements Iterator<T> {
         if (cursor<0 || cursor > Lista.size()) throw new IllegalArgumentException("Valor de cursor invalido");
         else this.cursor = cursor;
     }
-
     @Override
     public boolean hasNext() {
         return Lista.size() != 1;

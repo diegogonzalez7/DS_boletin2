@@ -31,7 +31,6 @@ public class TVRealityList<T> implements Iterable<T> {
             throw new UnsupportedOperationException("Numero de candidatos alcanzado, insercion invalida");
         else this.Lista.add(name);
     }
-
     @Override
     public Iterator<T> iterator() {
         // 0 -> recorrido circular
