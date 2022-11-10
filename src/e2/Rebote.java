@@ -16,12 +16,13 @@ public class Rebote<T> implements Iterator<T> {
 
     Rebote(ArrayList<T> Lista, int cursor) {
         this.Lista = Lista;
-        this.cursor = cursor;
+        if (cursor<0 || cursor > Lista.size()) throw new IllegalArgumentException("Valor de cursor invalido");
+        else this.cursor = cursor;
     }
 
     @Override
     public boolean hasNext() {
-        return cursor != this.Lista.size();
+        return Lista.size() != 1;
     }
 
     @Override
@@ -31,11 +32,16 @@ public class Rebote<T> implements Iterator<T> {
             throw new NoSuchElementException("Error:No hay mas iteraciones");
         }
         int i = cursor;
-        if (!change) cursor = i + 1;
-        else cursor = i - 1;
-        if (cursor == this.Lista.size()) {
-            this.change = true;
-            cursor = i - 1;
+        if (!change) cursor = i+1;
+        else cursor = i-1;
+        if (cursor >= Lista.size()-1) {
+            change = true;
+            if (Lista.size() >=2 )cursor = Lista.size() - 1;
+            else cursor --;
+        }
+        if (cursor < 0) {
+            change = false;
+            cursor = 1;
         }
         this.removable = true;
         return Lista.get(lastRet = i);
@@ -46,6 +52,8 @@ public class Rebote<T> implements Iterator<T> {
         if (lastRet != -1 && removable) {
             this.removable = false;
             this.Lista.remove(lastRet);
+            cursor--;
+            if (cursor < 0) {cursor = 0; change = false;}
         } else throw new IllegalStateException("Error: Remove no valido");
     }
 

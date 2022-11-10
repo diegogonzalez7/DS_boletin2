@@ -9,8 +9,8 @@ public class TVRealityList<T> implements Iterable<T> {
     private final ArrayList<T> Lista = new ArrayList<>();
 
     public TVRealityList(int cand_n, int method) {
-        this.cand_n = cand_n;
-
+        if (cand_n <= 0 )throw new IllegalArgumentException("Valor invalido de candidatos");
+        else this.cand_n = cand_n;
         this.method = method;
     }
 
@@ -27,32 +27,15 @@ public class TVRealityList<T> implements Iterable<T> {
     }
 
     public void addName(T name) {
-        if (getCand_n() != ListSize())
-            this.Lista.add(name);
-        else throw new UnsupportedOperationException("Numero de candidatos alcanzado, insercion invalida");
+        if (getCand_n() == ListSize())
+            throw new UnsupportedOperationException("Numero de candidatos alcanzado, insercion invalida");
+        else this.Lista.add(name);
     }
 
     @Override
     public Iterator<T> iterator() {
         // 0 -> recorrido circular
         // Else -> recorrido con rebote
-        /*int i;
-        Circular<T> c = new Circular<>(this.Lista, 0);
-        Rebote<T> r = new Rebote<>(this.Lista, 0);
-        if (method == 0) {
-            if (c.hasNext()) {
-                for (i = 0; i < this.k+1; i++) c.next();
-                c.remove();
-                return (Iterator<T>) r.next();
-            } else return (Iterator<T>) getByIndex(0);
-        } else {
-            if (r.hasNext()) {
-                for (i = 0; i < this.k+1; i++) r.next();
-                r.remove();
-                return (Iterator<T>) r.next();
-            } else return (Iterator<T>) getByIndex(0);
-        }
-    }*/
         if (this.method == 0)
             return new Circular<>(this.Lista, 0);
         else
