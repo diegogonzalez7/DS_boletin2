@@ -51,6 +51,7 @@ public class Login {
 
     private void setLoginStrategy(LoginStrategy loginStrategy) {
         this.LoginStrategy = loginStrategy;
+
     }
 
     public MfaStrategy getMfaStrategy() {

@@ -5,4 +5,5 @@ public class SMS implements MfaStrategy{
     public String GenerateCode() {
         return null;
     }
+
 }

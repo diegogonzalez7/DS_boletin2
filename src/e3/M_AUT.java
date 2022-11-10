@@ -5,4 +5,5 @@ public class M_AUT implements MfaStrategy{
     public String GenerateCode() {
         return null;
     }
+
 }

@@ -7,6 +7,7 @@ public class TLF implements LoginStrategy {
     @Override
     public boolean validateID(String login) {
         return Pattern.compile("\\d{3}[-\\.\\s]\\d{3}[-\\.\\s]\\d{3}").matcher(login).matches();
+
     }
 
     @Override
