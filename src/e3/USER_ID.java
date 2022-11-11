@@ -1,9 +1,14 @@
 package e3;
 
-import java.util.Objects;
+import java.util.HashMap;
 import java.util.regex.Pattern;
 
 public class USER_ID implements LoginStrategy{
+    private final HashMap<String,String> LoginPswd;
+
+    public USER_ID(HashMap<String, String> loginPswd) {
+        LoginPswd = loginPswd;
+    }
 
     @Override
     public boolean validateID(String login) {
@@ -12,6 +17,6 @@ public class USER_ID implements LoginStrategy{
     }
     @Override
     public boolean authenticatePassword(String id, String password) {
-        return validateID(id); // && Que este contenido en el hashmap de los datos && Que coincida el la contraseña de ese login con la introducid;
+        return validateID(id) && LoginPswd.containsKey(id) && password.equals(LoginPswd.get(id));
     }
 }

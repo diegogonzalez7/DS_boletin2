@@ -1,69 +1,39 @@
 package e3;
 
+import java.util.HashMap;
+
 public class Login {
-    LoginStrategy LoginStrategy;
-    MfaStrategy MfaStrategy;
-    String Login;
-    String Mobile_Num;
-    String User_Id;
-    String Password;
-
-    public Login(String login, String mobile_Num, String user_Id, String password) {
-        Login = login;
-        Mobile_Num = mobile_Num;
-        User_Id = user_Id;
-        Password = password;
+    private final HashMap<String, String> Id_psswd = new HashMap<>();
+    private LoginStrategy loginStrategy;
+    public void setLoginStrategy(LoginStrategy newLoginStrategy) {
+        this.loginStrategy = newLoginStrategy;
     }
 
-    public String getLogin() {
-        return Login;
+    public void SignUpUser(UserToLogin newUser) {
+        if (loginStrategy.validateID(newUser.getId())) {
+            if (!Id_psswd.containsKey(newUser.getId())) Id_psswd.put(newUser.getId(), newUser.getPassword());
+            else throw new UnsupportedOperationException("Usuario ya registrado anteriormente");
+        } else throw new IllegalArgumentException("Id de login invalida para la estrategia actual");
     }
 
-    protected void setLogin(String Login) {
-        if (LoginStrategy.validateID(Login)) {
-            this.Login = Login;
-        } else throw new IllegalArgumentException("Login no valido para la estrategia actual");
+    public void ChangeID(UserToLogin User, String newId) {
+        if (loginStrategy.authenticatePassword(User.getId(), User.getPassword())) {
+            Id_psswd.remove(User.getId(), User.getPassword());
+            Id_psswd.put(newId, User.getPassword());
+        } else throw new UnsupportedOperationException("Login incorrecto");
     }
 
-    public String getMobile_Num() {
-        return Mobile_Num;
+    public void ChangePassword(UserToLogin User,String newPassword){
+        if (loginStrategy.authenticatePassword(User.getId(), User.getPassword())) {
+            Id_psswd.replace(User.getId(), User.getPassword());
+        } else throw new UnsupportedOperationException("Login incorrecto");
     }
-
-    public void setMobile_Num(String Mobile_Num) {
-        if (LoginStrategy.validateID(Login)) {
-            this.Mobile_Num = Mobile_Num;
-        } else throw new IllegalArgumentException("Login no valido para la estrategia actual");
+    public String MFA(UserToLogin User) {
+        if (this.loginStrategy.authenticatePassword(User.getId(), User.getPassword())) return User.getMfaPrefered().GenerateCode();
+        else throw new UnsupportedOperationException("Login incorrecto");
     }
-
-    public String getUser_Id() {
-        return User_Id;
-    }
-
-    public void setUser_Id(String user_Id) {
-        if (LoginStrategy.validateID(Login)) {
-            this.User_Id = user_Id;
-        } else throw new IllegalArgumentException("Login no valido para la estrategia actual");
-    }
-
-    public LoginStrategy getLoginStrategy() {
-        return this.LoginStrategy;
-    }
-
-    private void setLoginStrategy(LoginStrategy loginStrategy) {
-        this.LoginStrategy = loginStrategy;
-
-    }
-
-    public MfaStrategy getMfaStrategy() {
-        return MfaStrategy;
-
-    }
-
-    private void setMfaStrategy(MfaStrategy MfaStrategy) {
-        this.MfaStrategy = MfaStrategy;
-    }
-
 }
+
 /*
 AUTENTICACIÓN MULTIFACTOR (MFA)
 Código)
