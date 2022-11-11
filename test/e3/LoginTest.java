@@ -7,6 +7,7 @@ class LoginTest {
     Login Login = new Login();
     UserToLogin user1 = new UserToLogin("alejandro.pazos@udc.es","ca34pat5",new OTP());
     UserToLogin user2 = new UserToLogin("ivan.romero@usc.es","L4R4ch4",new M_AUT());
+    UserToLogin user3 = new UserToLogin("holamellamopepe#2020","L4fafkwa3",new SMS());
     @Test
     void SetGetterLoginStrategy() {
         Login.setLoginStrategy(new EMAIL(Login.getId_psswd()));
@@ -51,6 +52,10 @@ class LoginTest {
         Login.setLoginStrategy(new EMAIL(Login.getId_psswd()));
         Login.SignUpUser(user2);
         assertEquals(String.class,Login.MFA(user2).getClass());
+        Login.setLoginStrategy(new USER_ID(Login.getId_psswd()));
+        Login.SignUpUser(user3);
+        assertEquals(String.class,Login.MFA(user3).getClass());
+
     }
 
     @Test
