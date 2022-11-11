@@ -1,5 +1,8 @@
 package e3;
 
+import java.util.Arrays;
+import java.util.Random;
+
 public class OTP implements MfaStrategy {
     @Override
     public String GenerateCode() { //6-8 digitos
