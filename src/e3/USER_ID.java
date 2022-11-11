@@ -12,7 +12,7 @@ public class USER_ID implements LoginStrategy{
 
     @Override
     public boolean validateID(String login) {
-        return Pattern.compile("(?=.{1,20}@)[A-Za-z0-9_-]+(\\.[A-Za-z0-9_-]+)*#(\\d{4})$").matcher(login).matches();
+        return Pattern.compile("(?=.{7,20}$)[A-Za-z0-9_-]+(\\.[A-Za-z0-9_-]+)*#(\\d{4})$").matcher(login).matches();
 
     }
     @Override

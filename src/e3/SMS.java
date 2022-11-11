@@ -9,12 +9,13 @@ public class SMS implements MfaStrategy {
         String numbers = "0123456789";
         Random rndm_method = new Random();
         char[] otp = new char[6];
-
+        StringBuilder Code = new StringBuilder();
         for (int i = 0; i < 6; i++) {
             otp[i] =
                     numbers.charAt(rndm_method.nextInt(numbers.length()));
-        }
-        return Arrays.toString(otp);
+        }for (int i=0;i < 6;i++){
+            Code.append(Character.toString(otp[i]));}
+        return Code.toString();
     }
 
 }

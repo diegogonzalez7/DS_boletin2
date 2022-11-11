@@ -5,8 +5,17 @@ import java.util.HashMap;
 public class Login {
     private final HashMap<String, String> Id_psswd = new HashMap<>();
     private LoginStrategy loginStrategy;
+
+    public LoginStrategy getLoginStrategy() {
+        return loginStrategy;
+    }
+
     public void setLoginStrategy(LoginStrategy newLoginStrategy) {
         this.loginStrategy = newLoginStrategy;
+    }
+
+    public HashMap<String, String> getId_psswd() {
+       return Id_psswd;
     }
 
     public void SignUpUser(UserToLogin newUser) {
@@ -20,17 +29,19 @@ public class Login {
         if (loginStrategy.authenticatePassword(User.getId(), User.getPassword())) {
             Id_psswd.remove(User.getId(), User.getPassword());
             Id_psswd.put(newId, User.getPassword());
-        } else throw new UnsupportedOperationException("Login incorrecto");
+        } else throw new UnsupportedOperationException("Login incorrecto o ID invalido para la estrategia actual");
     }
 
-    public void ChangePassword(UserToLogin User,String newPassword){
+    public void ChangePassword(UserToLogin User, String newPassword) {
         if (loginStrategy.authenticatePassword(User.getId(), User.getPassword())) {
-            Id_psswd.replace(User.getId(), User.getPassword());
-        } else throw new UnsupportedOperationException("Login incorrecto");
+            Id_psswd.replace(User.getId(), newPassword);
+        } else throw new UnsupportedOperationException("Login incorrecto o ID invalido para la estrategia actual");
     }
+
     public String MFA(UserToLogin User) {
-        if (this.loginStrategy.authenticatePassword(User.getId(), User.getPassword())) return User.getMfaPrefered().GenerateCode();
-        else throw new UnsupportedOperationException("Login incorrecto");
+        if (this.loginStrategy.authenticatePassword(User.getId(), User.getPassword()))
+            return User.getMfaPrefered().GenerateCode();
+        else throw new UnsupportedOperationException("Login incorrecto o ID invalido para la estrategia actual");
     }
 }
 
