@@ -113,5 +113,8 @@ class LoginTest {
         assertFalse(()->new USER_ID(Login.getId_psswd()).validateID("h#2020"));
         assertFalse(()->new USER_ID(Login.getId_psswd()).validateID("673-643-896"));
         assertFalse(()->new USER_ID(Login.getId_psswd()).validateID("pepe@udc.es"));
+        Login.setLoginStrategy(new USER_ID(Login.getId_psswd()));
+        Login.SignUpUser(user3);
+        assertTrue(()->new USER_ID(Login.getId_psswd()).authenticatePassword(user3.getId(),user3.getPassword()));
     }
 }
